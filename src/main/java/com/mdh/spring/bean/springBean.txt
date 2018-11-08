@@ -1,5 +1,49 @@
 Spring装配机制
 Spring提供了三种主要的装配机制：
 (1): 通过XML进行显示配置
+
+  常见的常见bean方式:
+  - 默认构造
+  <bean id="sbId" class=""/>
+
+    ·工厂模式
+        ·实例工厂(见struts和hibernate整合项目)
+        ·静态工厂
+            ·工厂方法是静态的 不需要创建工厂对象
+
+
+     BeanFactory: 它是工厂 用户生成任意Bean的 我们自己创建的普通类
+     FactoryBean: 它是spring提供的一个特殊bean 用于生成一个特定的bean 例如可以生成一个普通bean的代理 来实现朴素的AOP效果
+
+
 (2): 通过Java代码显示配置
 (3): 自动化装配
+---------------------------------------------------------------------------------------------------------------------------------
+自动装配
+Spring中IOC容器分两个步骤来完成自动化装配：
+组件扫描：Spring会自动发现应用上下文中所创建的 bean（通过定义资源的方式，让 Spring IoC 容器扫描对应的包，从而把 bean 装配进来）。
+自动装配：spring自动满足满足bean之间的依赖（通过注解定义，使得一些依赖关系可以通过注解完成。）
+1· 使用@Compoent注解申明bean  @ComponentScan("com.mdh.spring")
+  创建应用对象之间写作关系的行为通常称为装配，这也是依赖注入的本质。spring容器装配bean。
+  使用@Compoent注解，表明该类作为组件类，需要Spring IOC容器为这个类创建bean。
+  仅通过@Component注解Spring容器并不会主动创建bean,因为Spring的组件扫描默认是不启用的，
+  就是说Spring根本还不认识这个类，所以我们需要启用Spring组件扫描，方式有两种：
+  A: 使用@ComponentSacn注解发现bean
+    （默认情况下@ComponentScan会告知Spring扫描注解所在的jar包下所有含有@Component修饰的类，并且通过IOC容器创建bean）
+  B: 使用XML配置
+     <context:component-scan base-package="com.mdh.spring"></context:component-scan>
+2·使用@Autowried注解自动装配bean
+   @Autowired注解由Spring提供，可以对成员变量、方法以及构造函数进行注释
+
+---------------------------------------------------------------------------------------------------------------------------------
+自动化装配自有它的优势，但是也有它缺陷
+1: 代码中硬编码
+2: 无法解决使用第三方组件的问题
+   使用@Bean注解
+
+---------------------------------------------------------------------------------------------------------------------------------
+通过XML装配Bean
+在applicationContext.xml中加入
+<bean id="helloWorld" class="com.mdh.controller.HelloWord">
+   <property name="name" value="spring"></property>
+</bean>

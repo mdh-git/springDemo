@@ -1,3 +1,6 @@
+IOC:控制反转
+di:依赖(全局变量) 注入(set方法设置)
+
 Spring----Bean
 Spring装配机制
 Spring提供了三种主要的装配机制：
@@ -5,3 +8,14 @@ Spring提供了三种主要的装配机制：
   2: 通过Java代码显示配置
   3: 自动化装配
 ---------------------------------------------------------------------------------------
+BeanFactory: 它是工厂 用户生成任意Bean的 我们自己创建的普通类
+FactoryBean: 它是spring提供的一个特殊bean 用于生成一个特定的bean 例如可以生成一个普通bean的代理 来实现朴素的AOP效果
+
+作用域: 用于指定spring创建的bean作用范围/实例个数
+
+生命周期:构造方法 -> before -> init -> after
+
+·init-method: 当创建对象之后 立刻会被调用初始化方法
+·destroy-method: 当spring框架被关闭后 会调用销毁方法 该方法想要被调用:
+    ·需要score为singleton
+    ·ApplicationContext对象手动关闭该接口没有close方法 但是我使用的实现类 ClassPathXmlApplicationContext有该方法或者使用反射 直接声明子类对象来调用close
